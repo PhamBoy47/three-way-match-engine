@@ -19,7 +19,7 @@ npm run dev
 
 ## Workflow Approach
 <p align="center">
-  <img src="workflow_diagram.svg" width="600" height="500" alt="Three-Way Match Workflow Diagram"/>
+  <img src="./Workflow_Diagram.svg" width="600" height="500" alt="Three-Way Match Workflow Diagram"/>
 </p>
 Instead of creating a separate database table to store "Match Results" and trying to update it every time a file comes in, I decided to make the matching **stateless**. 
 
