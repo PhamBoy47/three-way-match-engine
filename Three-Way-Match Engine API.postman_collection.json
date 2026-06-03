@@ -1,0 +1,185 @@
+{
+  "info": {
+    "_postman_id": "048f640f-4330-4113-9e0d-eb5c1a9fa9bd",
+    "name": "Three-Way-Match Engine API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55403800",
+    "_collection_link": "https://go.postman.co/collection/55403800-048f640f-4330-4113-9e0d-eb5c1a9fa9bd?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Upload PO",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "9548ce4d-7234-4521-a261-c2aca7a33e1c",
+              "src": "postman-cloud:///1f15dcf0-6bd2-4ab0-9855-fde66619f6e9"
+            },
+            {
+              "key": "documentType",
+              "value": "po",
+              "type": "text",
+              "uuid": "705e8e4f-e47e-4fb6-86aa-906be26ccbe6"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/documents/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "documents",
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload GRN",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "9548ce4d-7234-4521-a261-c2aca7a33e1c",
+              "src": "postman-cloud:///1f15dcf0-3b51-4ad0-b760-fa1549cb68b3"
+            },
+            {
+              "key": "documentType",
+              "value": "grn",
+              "type": "text",
+              "uuid": "0782ac77-58d0-4b83-ba35-9088a593c359"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/documents/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "documents",
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Invoice",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "uuid": "9548ce4d-7234-4521-a261-c2aca7a33e1c",
+              "src": "postman-cloud:///1f15dcf6-0eee-4b40-8ff1-b627cc7ca20a"
+            },
+            {
+              "key": "documentType",
+              "value": "invoice",
+              "type": "text",
+              "uuid": "0782ac77-58d0-4b83-ba35-9088a593c359"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/documents/upload",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "documents",
+            "upload"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Match Result",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "",
+              "type": "file",
+              "uuid": "9548ce4d-7234-4521-a261-c2aca7a33e1c",
+              "src": "/D:/Documents/PO (1).pdf"
+            },
+            {
+              "key": "",
+              "value": "PO",
+              "type": "text",
+              "uuid": "0782ac77-58d0-4b83-ba35-9088a593c359"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/match/CI4PO05788",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "match",
+            "CI4PO05788"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Parsed Document",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/documents/6a1e79ee7e9c1d4a65260f8c",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "documents",
+            "6a1e79ee7e9c1d4a65260f8c"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
