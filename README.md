@@ -5,7 +5,7 @@ A backend API to upload PO, GRN, and Invoice PDFs, extract their data using Gemi
 ## Tech Stack
 - Node.js / Express
 - MongoDB (Mongoose)
-- Gemini 2.5 Flash API
+- Gemini 3.1 Flash Lite API
 - Multer (for file uploads)
 
 ## Setup
