@@ -17,7 +17,10 @@ npm run dev
 
 ---
 
-## My Approach
+## Workflow Approach
+<p align="center">
+  <img src="workflow_diagram.svg" width="600" height="500" alt="Three-Way Match Workflow Diagram"/>
+</p>
 Instead of creating a separate database table to store "Match Results" and trying to update it every time a file comes in, I decided to make the matching **stateless**. 
 
 When you ask for the match status of a PO number, the code just looks at whatever documents exist in the database *at that exact moment*, does the math, and returns the answer. This made the code much simpler and completely solved the out-of-order upload problem without needing complex background jobs.
