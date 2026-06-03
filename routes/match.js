@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { performMatch } = require('../services/matchService');
 
-// GET /match/:poNumber
+
 router.get('/:poNumber', async (req, res) => {
   try {
     // Just compute it right now based on what's in the DB

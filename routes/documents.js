@@ -24,7 +24,6 @@ const upload = multer({
   limits: { fileSize: 15 * 1024 * 1024 } // 15MB limit
 });
 
-// POST /documents/upload
 router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
@@ -46,7 +45,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
       });
     }
 
-    // 2. Make sure we got a poNumber
     const poNumber = parsedData.poNumber;
     if (!poNumber) {
       return res.status(422).json({ error: 'Could not extract poNumber from document' });
@@ -81,7 +79,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-// GET /documents/:id
+
 router.get('/:id', async (req, res) => {
   try {
     const document = await Document.findById(req.params.id);

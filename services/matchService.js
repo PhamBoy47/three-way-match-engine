@@ -1,13 +1,11 @@
 const Document = require('../models/Document');
 
-// --- Fuzzy Matching Helpers ---
-// Normalizes "Chicken Momos 24.0 Pieces" -> "chickenmomos240pieces"
+//Matching Helpers
 function normalizeDesc(str = '') {
   return str.toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
 // Finds matching item. 
-// Tries exact code first (PO vs GRN), then fuzzy description (Invoice vs PO/GRN)
 function findItem(target, itemsMap) {
   if (!target) return null;
 
@@ -16,8 +14,7 @@ function findItem(target, itemsMap) {
     return itemsMap[target.itemCode];
   }
 
-  // 2. Fallback: Fuzzy description match (because Invoice uses codes like FG-P-F-0503 
-  // while PO uses 11423 for the same item)
+  // 2. Fallback: Fuzzy description match 
   const tNorm = normalizeDesc(target.description);
   for (const item of Object.values(itemsMap)) {
     const iNorm = normalizeDesc(item.description);
@@ -33,7 +30,6 @@ function findItem(target, itemsMap) {
 }
 
 // --- Main Match Logic ---
-// Stateless: We don't save the result, we just calculate it based on DB right now
 async function performMatch(poNumber) {
   // Fetch all docs for this PO concurrently
   const [po, grns, invoices] = await Promise.all([
@@ -48,7 +44,6 @@ async function performMatch(poNumber) {
     invoices: invoices.map(i => ({ id: i._id, number: i.parsedData.invoiceNumber }))
   };
 
-  // --- FIXED: Check ALL missing documents at once ---
   const missingReasons = [];
   
   if (!po) {
@@ -61,7 +56,6 @@ async function performMatch(poNumber) {
     missingReasons.push('missing_invoice');
   }
 
-  // If even one is missing, we can't do the 3-way match yet
   if (missingReasons.length > 0) {
     return { 
       poNumber, 
@@ -70,7 +64,6 @@ async function performMatch(poNumber) {
       linkedDocuments: linkedDocs 
     };
   }
-  // ----------------------------------------------------
 
   const reasons = [];
 
@@ -84,7 +77,7 @@ async function performMatch(poNumber) {
 
   // Aggregate GRN quantities
   const grnTotals = {}; 
-  const grnItemMap = {}; // Keep one instance for description lookup
+  const grnItemMap = {}; 
   grns.forEach(grn => {
     (grn.parsedData.items || []).forEach(item => {
       grnItemMap[item.itemCode] = item;
@@ -149,18 +142,16 @@ async function performMatch(poNumber) {
     }
   }
 
-  // ADD THIS NEW LINE: Explain WHY it's partially matched
   if (hasPartialDelivery && reasons.length === 0) {
     reasons.push('partial_grn_delivery');
   }
 
   let status;
   if (reasons.length > 0) {
-    // Check if the only reason is a partial delivery (not a strict violation)
     if (reasons.length === 1 && reasons[0] === 'partial_grn_delivery') {
       status = 'partially_matched';
     } else {
-      status = 'mismatch'; // Actual rule violations
+      status = 'mismatch'; 
     }
   } else if (hasPartialDelivery) {
     status = 'partially_matched';
